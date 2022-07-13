@@ -1,0 +1,40 @@
+body{
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.memory-app{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#board{
+    display: grid;
+    background-color: rgb(87, 133, 173);
+    width: 500px;
+    height: 500px;
+    grid-template-columns: 100px 100px 100px 100px 100px;
+    grid-template-rows:  100px 100px 100px 100px 100px;
+}
+
+.board__tile{
+    background-color: bisque;
+    border: 1px solid grey;
+    
+}
+
+.board__tile:hover{
+    background-color: rgb(48, 54, 52);
+}
+
+#board__button{
+    margin-top: 50px;
+}
+
+#counter{
+    font-size: 50px;
+}
