@@ -1,14 +1,30 @@
 let level = 1;
 
+const setNextLevel = async () => {
+  await sleep(500);
+  alert("Przeszedłes poziom. Kliknij OK aby przejsc dalej");
+
+  level++;
+  playRound(level);
+};
+
+const restartGame = async () => {
+  await sleep(500);
+  alert("Przegrales! Twój maksymalny poziom to: " + level);
+  document.location.reload();
+};
+
 const boardGenerator = (sideSquare) => {
   const board = document.getElementById("board");
 
+  board.innerHTML = "";
   let index = 0;
   for (let i = 0; i < sideSquare; i++) {
     for (let j = 0; j < sideSquare; j++) {
       let boardTile = document.createElement("div");
       boardTile.setAttribute("id", index.toString());
       boardTile.setAttribute("class", "board__tile");
+      boardTile.style.background = "bisque";
       board.appendChild(boardTile);
 
       index++;
@@ -42,6 +58,16 @@ const showRandomTiles = async (randomTiles, visibilityTime) => {
   }
 };
 
+const setLevelTitle = () => {
+  const menu = document.getElementById("menu");
+  menu.innerHTML = "";
+
+  let levelTitle = document.createElement("div");
+  levelTitle.setAttribute("id", "menu__level");
+  levelTitle.innerHTML = "Poziom: " + level;
+  menu.appendChild(levelTitle);
+};
+
 const setTileStyle = async (tile, isCorrect) => {
   if (isCorrect) {
     tile.style.background = "green";
@@ -54,30 +80,28 @@ const setTileStyle = async (tile, isCorrect) => {
   }
 };
 
-const playRound = (level) => {
+const playRound = async (level) => {
+  setLevelTitle();
+  boardGenerator(5);
   let randomTiles = getRandomTiles(level, 0, 24);
   let moveId = 0;
   let boardTiles = document.getElementsByClassName("board__tile");
   boardTiles = [...boardTiles];
 
-  showRandomTiles(randomTiles, 700);
+  await showRandomTiles(randomTiles, 700);
 
-  console.log(randomTiles);
   boardTiles.map((tile) => {
     tile.addEventListener("click", async () => {
-      console.log(moveId);
-      console.log(level);
       if (checkPick(tile.id, moveId, randomTiles)) {
         setTileStyle(tile, true);
 
         if (randomTiles.length == moveId + 1) {
-          alert("Przeszedles poziom. Kliknij OK aby przejsc dalej");
-          playRound(level + 1);
+          setNextLevel();
         }
       } else {
         setTileStyle(tile, false);
-        alert("Przegrales! Twój wynik to: 123");
-        document.location.reload();
+        await sleep(500);
+        restartGame();
       }
       moveId++;
     });
@@ -85,7 +109,7 @@ const playRound = (level) => {
 };
 
 const startCounter = async () => {
-  const menu = document.getElementById("menu");
+  const menu = document.getElementById("board");
 
   let counter = document.createElement("div");
   counter.setAttribute("id", "counter");

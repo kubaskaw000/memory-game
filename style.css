@@ -3,6 +3,7 @@ body{
     justify-content: center;
     align-items: center;
     display: flex;
+    background-color: rgb(58, 58, 58);
 }
 
 .memory-app{
@@ -13,6 +14,7 @@ body{
 }
 
 #board{
+    position: relative;
     display: grid;
     background-color: rgb(87, 133, 173);
     width: 500px;
@@ -24,17 +26,32 @@ body{
 .board__tile{
     background-color: bisque;
     border: 1px solid grey;
+    cursor: pointer;
     
 }
 
 .board__tile:hover{
-    background-color: rgb(48, 54, 52);
+    background-color: rgb(255, 254, 223)
 }
 
 #board__button{
     margin-top: 50px;
 }
 
+#menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#menu__level{
+    font-size:50px;
+    color: white
+}
+
 #counter{
-    font-size: 50px;
+    font-size: 350px;
+    position:absolute;
+    left:32%;
+    top:10%;
 }
